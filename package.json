@@ -1,0 +1,24 @@
+{
+  "name": "bundler",
+  "version": "0.0.0",
+  "description": "my bundling preferences wrapped up in a single command",
+  "author": [
+    "Michael Rhodes <spam+git@michaelrhod.es>",
+    "Renée Kooi <renee@kooi.me>"
+  ],
+  "bin": {
+    "bundle": "bin.js"
+  },
+  "dependencies": {
+    "browser-pack-flat": "~3.0.5",
+    "browserify": "~14.5.0",
+    "bundle-collapser": "~1.3.0",
+    "common-shakeify": "~0.4.5",
+    "envify": "~4.1.0",
+    "find-pkg": "~1.0.0",
+    "minify-stream": "~1.1.0",
+    "uglifyify": "~4.0.5",
+    "unassertify": "~2.1.0"
+  },
+  "license": "MIT"
+}

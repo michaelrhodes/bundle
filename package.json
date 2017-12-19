@@ -1,6 +1,6 @@
 {
   "name": "bundler",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "my bundling preferences wrapped up in a single command",
   "author": [
     "Michael Rhodes <spam+git@michaelrhod.es>",

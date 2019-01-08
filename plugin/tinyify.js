@@ -1,10 +1,10 @@
 var packFlatStream = require('browser-pack-flat')
-var packFlat = require('browser-pack-flat/plugin')
 var collapser = require('bundle-collapser/plugin')
+var packFlat = require('browser-pack-flat/plugin')
+var aliasify = require('aliasify')
 var commonShake = require('common-shakeify')
 var envify = require('envify/custom')
 var uglify = require('minify-stream')
-var split = require('split-require')
 var uglifyify = require('uglifyify')
 var unassertify = require('unassertify')
 
@@ -30,6 +30,8 @@ module.exports = function (b, opts) {
 
   var env = Object.assign({}, process.env, opts.env)
 
+  // Alias `require()` paths.
+  b.transform(aliasify, { global: true })
   // Remove `assert()` calls.
   b.transform(unassertify, { global: true })
   // Replace `process.env.NODE_ENV` with "production".
@@ -42,9 +44,6 @@ module.exports = function (b, opts) {
     mangle: false,
     output: { ascii_only: true }
   })
-
-  // Split async requires into their own files.
-  b.plugin(split)
 
   // Replace file paths in require() calls with module IDs.
   b.plugin(collapser)

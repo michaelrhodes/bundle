@@ -1,10 +1,10 @@
 {
-  "name": "bundler",
+  "name": "bundle",
   "author": [
     "Michael Rhodes <spam+git@michaelrhod.es>",
     "Renée Kooi <renee@kooi.me>"
   ],
-  "version": "3.0.0",
+  "version": "3.1.0",
   "bin": {
     "bundle": "bin.js"
   },

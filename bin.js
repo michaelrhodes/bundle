@@ -1,11 +1,18 @@
 #!/usr/bin/env node
 
+var mri = require('mri')
 var browserify = require('browserify')
 var tinyify = require('./plugin/tinyify')
+var args = mri(process.argv.slice(2), {
+  alias: { s: 'standalone', t: 'transform', p: 'plugin' }
+})
 
-var entry = process.argv[2]
-var standalone = /^(-s|--standalone)$/.test(process.argv[3])
-var opts = { entries: [entry], plugin: [tinyify] }
-if (standalone) opts.standalone = 'x'
+var opts = {
+  entries: args._[0],
+  transform: args.transform,
+  plugin: [tinyify].concat(args.plugin || [])
+}
+
+if (args.standalone) opts.standalone = 'x'
 
 browserify(opts).bundle().pipe(process.stdout)

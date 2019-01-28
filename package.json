@@ -19,6 +19,7 @@
     "envify": "~4.1.0",
     "find-pkg": "~1.0.0",
     "minify-stream": "~1.1.0",
+    "mri": "^1.1.4",
     "uglifyify": "~4.0.5",
     "unassertify": "~2.1.0"
   }

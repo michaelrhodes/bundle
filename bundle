@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+var mri = require('mri')
+var browserify = require('browserify')
+var plugin = require('./plugin')
+var args = mri(process.argv.slice(2), {
+  alias: {
+    n: 'node',
+    e: 'export',
+    u: 'universal',
+    m: 'maximize',
+    s: 'sourceMap',
+    t: 'transform',
+    g: 'globalTransform',
+    p: 'plugin'
+  }
+})
+
+var opts = {
+  bare: !args.node,
+  entries: args._[0],
+  maximize: args.maximize,
+  sourceMap: args.sourceMap,
+  transform: args.transform,
+  universal: args.universal,
+  globalTransform: args.globalTransform,
+  plugin: [plugin].concat(args.plugin || [])
+}
+
+if (args.export) opts.standalone = args.export
+
+browserify(opts).bundle().pipe(process.stdout)

@@ -8,6 +8,7 @@ var args = mri(process.argv.slice(2), {
     n: 'node',
     e: 'export',
     u: 'universal',
+    c: 'console',
     m: 'maximize',
     s: 'sourceMap',
     t: 'transform',
@@ -17,8 +18,10 @@ var args = mri(process.argv.slice(2), {
 })
 
 var opts = {
+  es6: args.es6,
   bare: !args.node,
   entries: args._[0],
+  console: args.console,
   maximize: args.maximize,
   sourceMap: args.sourceMap,
   transform: args.transform,

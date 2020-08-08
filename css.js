@@ -1,0 +1,34 @@
+module.exports = css
+
+var fs = require('fs')
+var postcss = require('postcss')
+var imports = require('postcss-import')
+var presets = require('postcss-preset-env')
+var prefix = require('autoprefixer')
+var mini = require('cssnano')
+var mri = require('mri')
+
+async function css (argv) {
+  var args = mri(argv, {
+    alias: { m: 'maximise' }
+  })
+
+  var processor = postcss()
+  processor.use(imports())
+  processor.use(prefix({ grid: 'autoplace' }))
+  processor.use(presets())
+  if (!args.maximise) processor.use(mini())
+
+  var file = extension(args._[0])
+  var css = fs.readFileSync(file)
+  var output = await processor.process(css, {
+    from: file
+  })
+
+  process.stdout.write(output.toString())
+  process.exit(0)
+}
+
+function extension (file) {
+  return file.replace(/(\.css)?$/, '.css')
+}

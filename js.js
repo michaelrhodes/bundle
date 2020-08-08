@@ -1,5 +1,6 @@
-module.exports = plugin
+module.exports = js
 
+var browserify = require('browserify')
 var collapse = require('bundle-collapser/plugin')
 var flatten = require('browser-pack-flat/plugin')
 var shake = require('common-shakeify')
@@ -8,6 +9,40 @@ var envify = require('envify/custom')
 var uglify = require('uglifyify')
 var quiet = require('stripify')
 var es53 = require('es5.3')
+var mri = require('mri')
+
+function js (argv) {
+  var args = mri(argv, {
+    alias: {
+      n: 'node',
+      e: 'export',
+      u: 'universal',
+      c: 'console',
+      m: 'maximise',
+      s: 'sourceMap',
+      t: 'transform',
+      g: 'globalTransform',
+      p: 'plugin'
+    }
+  })
+
+  var opts = {
+    es6: args.es6,
+    bare: !args.node,
+    entries: args._[0],
+    console: args.console,
+    maximise: args.maximise,
+    sourceMap: args.sourceMap,
+    transform: args.transform,
+    universal: args.universal,
+    globalTransform: args.globalTransform,
+    plugin: [plugin].concat(args.plugin || [])
+  }
+
+  if (args.export) opts.standalone = args.export
+
+  browserify(opts).bundle().pipe(process.stdout)
+}
 
 function plugin (b, opts) {
   var env = Object.assign({}, process.env, opts.env)
@@ -48,7 +83,7 @@ function plugin (b, opts) {
   b.plugin(shake)
 
   // Minify the final output
-  if (!b._options.maximize) b.pipeline.get('pack').push(minify({
+  if (!b._options.maximise) b.pipeline.get('pack').push(minify({
     output: { ascii_only: true },
     mangle: { safari10: true },
     sourceMap: b._options.sourceMap

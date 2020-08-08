@@ -13,6 +13,7 @@
     "minify-stream": "^1.1.0",
     "mri": "^1.1.4",
     "stripify": "^6.0.0",
-    "uglifyify": "^5.0.2"
+    "uglifyify": "^5.0.2",
+    "zcc": "github:michaelrhodes/zcc#2.1.1"
   }
 }

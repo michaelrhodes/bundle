@@ -14,6 +14,7 @@ var mri = require('mri')
 function js (argv) {
   var args = mri(argv, {
     alias: {
+      6: 'es6',
       n: 'node',
       e: 'export',
       u: 'universal',
@@ -41,7 +42,9 @@ function js (argv) {
 
   if (args.export) opts.standalone = args.export
 
-  browserify(opts).bundle().pipe(process.stdout)
+  browserify(opts).bundle()
+    .on('error', err => console.error(err.stack))
+    .pipe(process.stdout)
 }
 
 function plugin (b, opts) {
@@ -66,7 +69,7 @@ function plugin (b, opts) {
   })
 
   // Remove dead code
-  if (!b._options.maximize) b.transform(uglify, {
+  if (!b._options.maximise) b.transform(uglify, {
     output: { ascii_only: true },
     global: true,
     mangle: false,

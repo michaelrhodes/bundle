@@ -19,14 +19,16 @@ async function css (argv) {
   processor.use(presets())
   if (!args.maximise) processor.use(mini())
 
-  var file = extension(args._[0])
-  var css = fs.readFileSync(file)
-  var output = await processor.process(css, {
-    from: file
-  })
-
-  process.stdout.write(output.toString())
-  process.exit(0)
+  try {
+    var file = extension(args._[0])
+    var css = fs.readFileSync(file)
+    var output = processor.process(css, { from: file })
+    process.stdout.write(output.toString())
+  }
+  catch (err) {
+    console.error(err.stack)
+    process.exit(1)
+  }
 }
 
 function extension (file) {

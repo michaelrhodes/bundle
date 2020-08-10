@@ -1,2 +1,21 @@
 #!/usr/bin/env node
-require('zcc')()
+
+var fs = require('fs')
+var path = require('path')
+var argv = process.argv.slice(2)
+
+var subcommand = argv.shift()
+if (subcommand  === 'js') return require('./js')(argv)
+if (subcommand  === 'css') return require('./css')(argv)
+argv.unshift(subcommand)
+
+var ext = path.extname(argv[0])
+if (ext === '.js') return require('./js')(argv)
+if (ext === '.css') return require('./css')(argv)
+if (fs.existsSync(argv[0] + '.js')) return require('./js')(argv)
+if (fs.existsSync(argv[0] + '.css')) return require('./css')(argv)
+if (fs.existsSync(argv[0] + '/index.js')) return require('./js')(argv)
+if (fs.existsSync(argv[0] + '/index.css')) return require('./css')(argv)
+
+console.error('File not found: %s', argv[0])
+process.exit(1)

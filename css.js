@@ -22,8 +22,10 @@ async function css (argv) {
   try {
     var file = extension(args._[0])
     var css = fs.readFileSync(file)
-    var output = processor.process(css, { from: file })
-    process.stdout.write(output.toString())
+    var bundle = processor.process(css, { from: file })
+    bundle.then(function (output) {
+      process.stdout.write(output.toString())
+    })
   }
   catch (err) {
     console.error(err.stack)

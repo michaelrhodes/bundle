@@ -1,6 +1,6 @@
 {
   "name": "bundle",
-  "version": "6.1.2",
+  "version": "7.0.0",
   "bin": "bundle",
   "license": "CC0-1.0",
   "dependencies": {

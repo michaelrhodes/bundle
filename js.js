@@ -1,7 +1,6 @@
 module.exports = js
 
 var browserify = require('browserify')
-var collapse = require('bundle-collapser/plugin')
 var flatten = require('browser-pack-flat/plugin')
 var shake = require('common-shakeify')
 var minify = require('minify-stream')
@@ -75,9 +74,6 @@ function plugin (b, opts) {
     mangle: false,
     toplevel: true
   })
-
-  // Replace require paths with numeric ids
-  b.plugin(collapse)
 
   // Flatten code into a single scope
   b.plugin(flatten, b._options)

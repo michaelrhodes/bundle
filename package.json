@@ -6,7 +6,7 @@
   "dependencies": {
     "autoprefixer": "^9.8.6",
     "browser-pack-flat": "github:michaelrhodes/browser-pack-flat",
-    "browserify": "^16.5.1",
+    "browserify": "^17.0.0",
     "bundle-collapser": "^1.3.0",
     "common-shakeify": "^0.4.5",
     "cssnano": "^4.1.10",

@@ -13,7 +13,7 @@ var mri = require('mri')
 function js (argv) {
   var args = mri(argv, {
     alias: {
-      6: 'es6',
+      i: 'ie',
       n: 'node',
       e: 'export',
       u: 'universal',
@@ -27,7 +27,7 @@ function js (argv) {
   })
 
   var opts = {
-    es6: args.es6,
+    ie: args.ie,
     bare: !args.node,
     entries: args._[0],
     console: args.console,
@@ -57,7 +57,7 @@ function plugin (b, opts) {
   // Transform arrow functions,
   // shorthand object properties,
   // and template literals into es5
-  if (!b._options.es6) b.transform(es53, {
+  if (b._options.ie) b.transform(es53, {
     global: true
   })
 
